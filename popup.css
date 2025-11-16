@@ -1,0 +1,103 @@
+:root {
+  --bg: #fff;
+  --fg: #111;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --accent: #111;
+  --accent-weak: #1f2937;
+  --footer-h: 44px; /* fixed footer height */
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+/* Hide popup scrollbars; list scrolls internally with bars hidden */
+html, body { overflow: hidden; }
+*::-webkit-scrollbar { width: 0; height: 0; }
+* { scrollbar-width: none; -ms-overflow-style: none; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  min-width: 380px; max-width: 980px;
+  padding-bottom: var(--footer-h); /* reserve space for bottom fixed footer */
+}
+
+header { padding: 12px; border-bottom: 1px solid var(--line); }
+h1 { font-size: 16px; margin: 0 0 8px; font-weight: 700; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+button {
+  appearance: none; border: 1px solid var(--line); background: #fff; color: var(--fg);
+  border-radius: 10px; padding: 8px 10px; font-size: 12px; cursor: pointer;
+  transition: transform .06s ease, box-shadow .12s ease, background .12s ease;
+}
+button:hover { box-shadow: 0 1px 0 rgba(0,0,0,.05); background: #fafafa; }
+button:active { transform: translateY(1px); }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+button.primary:hover { background: var(--accent-weak); }
+
+#list {
+  padding: 12px;
+  padding-bottom: var(--footer-h);   /* keep last card clear of footer */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  max-height: 560px;                 /* internal scroll area (bars hidden) */
+  overflow: auto;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+}
+.card:hover { border-color: #000; box-shadow: 0 6px 20px rgba(0,0,0,.06); }
+
+.controls { display: flex; align-items: center; gap: 8px; padding: 8px 10px; }
+.controls .host { font-size: 12px; color: var(--muted); }
+.controls .badge {
+  margin-left: auto; background: #eef2ff; color: #1e1b4b;
+  padding: 2px 8px; border-radius: 999px; font-size: 10px; font-weight: 600;
+}
+
+.thumb { background: #fff; display: grid; place-items: center; height: 160px; }
+.thumb img { max-width: 100%; max-height: 160px; object-fit: contain; border-radius: 6px; }
+
+.meta { padding: 8px 10px; font-size: 12px; color: var(--muted); word-break: break-all; }
+.meta code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #111; }
+
+/* 4 buttons (Open, Copy URL, Copy Image, Download) */
+.row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
+  padding: 8px 10px; border-top: 1px solid var(--line);
+}
+.row button { font-size: 11px; padding: 6px 8px; }
+
+/* Footer fixed at the bottom, stays visible while list scrolls */
+footer {
+  position: fixed; bottom: 0; left: 0; right: 0; height: var(--footer-h);
+  display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 0 12px;
+  border-top: 1px solid var(--line);
+  background: var(--bg); color: var(--muted); font-size: 11px;
+  z-index: 1000;
+}
+footer a { color: #000; text-decoration: none; font-weight: 700; }
+footer a:hover { text-decoration: underline; }
+
+/* Toasts sit above the footer so they don’t overlap it */
+#toastHost {
+  position: fixed; bottom: calc(12px + var(--footer-h)); left: 12px; right: 12px;
+  display: grid; gap: 8px; pointer-events: none;
+}
+.toast {
+  background: #111; color: #fff; border-radius: 12px; padding: 10px 12px;
+  font-size: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  opacity: 0; transform: translateY(6px); transition: all .18s ease;
+}
+.toast.show { opacity: 1; transform: translateY(0); }

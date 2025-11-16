@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Canva Image Hunter</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Canva Image Hunter</h1>
+      <div class="actions">
+        <button id="refresh" class="primary">Refresh</button>
+        <button id="downloadAll">Download all</button>
+      </div>
+    </header>
+
+    <main id="list" aria-live="polite"></main>
+
+    <footer>
+      <div id="toastHost" aria-live="polite" aria-atomic="true"></div>
+      <small>
+        Made with 💜 and too much ☕ by
+        <a href="https://github.com/TheCHARIITH" target="_blank" rel="noopener noreferrer">TheCHARITH</a>
+      </small>
+    </footer>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
